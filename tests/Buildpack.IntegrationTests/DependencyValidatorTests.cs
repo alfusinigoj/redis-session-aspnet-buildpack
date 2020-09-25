@@ -8,22 +8,17 @@ namespace Buildpack.UnitTests
     public class DependencyValidatorTests
     {
         string expectedDll = Path.Combine(Environment.CurrentDirectory, "assembly", "Microsoft.Web.RedisSessionStateProvider.dll");
-        ILogger logger;
-        IOptions options;
 
         public DependencyValidatorTests()
         {
-            var buildPath = Path.Combine(Environment.CurrentDirectory, "assembly");
-            Directory.CreateDirectory(buildPath);
-            options = new ApplicationOptions { BuildPath = buildPath };
-            logger = new ConsoleLogger();
+            Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, "assembly"));
         }
 
         [Fact]
         public void Test_IfDoesNotThrowExecptionIfProviderDllsExist()
         {
             File.WriteAllText(expectedDll, "");
-            var validator = new DependencyValidator(options, logger);
+            var validator = new DependencyValidator(Path.Combine(Environment.CurrentDirectory, "assembly"));
             validator.Validate();
         }
 
@@ -33,8 +28,8 @@ namespace Buildpack.UnitTests
             File.WriteAllText(expectedDll, "");
 
             File.Delete(expectedDll);
-            var validator = new DependencyValidator(options, logger);
-            Assert.Throws<Exception>(() => validator.Validate());
+            var validator = new DependencyValidator(Path.Combine(Environment.CurrentDirectory, "assembly"));
+            Assert.Throws<Exception>(()=>validator.Validate());
         }
     }
 }
