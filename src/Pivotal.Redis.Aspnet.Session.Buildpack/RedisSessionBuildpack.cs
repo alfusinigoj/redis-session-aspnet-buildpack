@@ -1,9 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-using Steeltoe.Extensions.Configuration.CloudFoundry;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
 
 namespace Pivotal.Redis.Aspnet.Session.Buildpack
 {
@@ -24,6 +20,9 @@ namespace Pivotal.Redis.Aspnet.Session.Buildpack
 
         protected override bool Detect(string buildPath)
         {
+            if (string.IsNullOrWhiteSpace(buildPath))
+                buildPath = Environment.CurrentDirectory;
+
             return File.Exists(Path.Combine(buildPath, "web.config"));
         }
 
@@ -34,7 +33,12 @@ namespace Pivotal.Redis.Aspnet.Session.Buildpack
                 logger.WriteLog("================================================================================");
                 logger.WriteLog("=================== Redis Session Buildpack execution started ==================");
                 logger.WriteLog("================================================================================");
-                
+
+                if (string.IsNullOrWhiteSpace(buildPath))
+                    buildPath = Environment.CurrentDirectory;
+
+                logger.WriteLog($"-----> Using buildPath {buildPath}");
+
                 InitializeConfigAndExecuteProcessor(buildPath);
 
                 logger.WriteLog("================================================================================");

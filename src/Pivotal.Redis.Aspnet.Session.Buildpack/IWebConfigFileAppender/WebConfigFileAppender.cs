@@ -18,11 +18,11 @@ namespace Pivotal.Redis.Aspnet.Session.Buildpack
             this.logger = logger;
             this.connectionProvider = connectionProvider;
             this.cryptoGenerator = cryptoGenerator;
-            xmlDoc.Load(options.WebConfigFilePath);
         }
 
         public void ApplyChanges()
         {
+            xmlDoc.Load(options.WebConfigFilePath);
             ApplySessionStateSectionChanges();
             ApplyMachineKeySectionChanges();
         }

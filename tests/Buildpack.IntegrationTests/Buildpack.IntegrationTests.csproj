@@ -19,16 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="ConfigFiles\GivenWithSessionWithMachineKey.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="ConfigFiles\GivenWithSessionNoMachineKey.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="ConfigFiles\GivenWithoutSession.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="ConfigFiles\Expected.config">
+    <None Update="web.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
